@@ -1,0 +1,279 @@
+{% extends 'base/base.html' %}
+
+{% block titulo %}{{ titulo }}{% endblock %}
+
+{% block content %}
+
+<style>
+.card-espaco{
+    background:#fff;
+    border-radius:18px;
+    padding:26px;
+    box-shadow:0 8px 25px rgba(15,23,42,.08);
+}
+
+.bloco-form{
+    border:1px solid #e2e8f0;
+    border-radius:16px;
+    padding:22px;
+    margin-bottom:22px;
+}
+
+.titulo-bloco{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.icone-bloco{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+}
+
+.azul{background:#e0f2fe;color:#0369a1}
+.verde{background:#dcfce7;color:#15803d}
+.roxo{background:#f3e8ff;color:#7e22ce}
+.laranja{background:#ffedd5;color:#c2410c}
+
+.titulo-bloco h4{
+    margin:0;
+    font-weight:700;
+    color:#0f172a;
+}
+
+.titulo-bloco small{
+    color:#64748b;
+}
+
+.card-espaco input,
+.card-espaco select,
+.card-espaco textarea{
+    border-radius:10px !important;
+    padding:11px 12px !important;
+}
+
+.card-espaco textarea{
+    min-height:110px;
+}
+
+.check-card{
+    border:1px solid #bbf7d0;
+    border-radius:12px;
+    padding:13px 15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#fff;
+    height:100%;
+}
+
+.check-card label{
+    margin:0;
+    font-weight:500;
+    color:#14532d;
+}
+
+.galeria-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    gap:14px;
+    margin-top:14px;
+}
+
+.foto-card{
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:8px;
+    background:#f8fafc;
+}
+
+.foto-card img{
+    width:100%;
+    height:110px;
+    object-fit:cover;
+    border-radius:10px;
+    display:block;
+}
+
+.input-galeria{
+    border:2px dashed #cbd5e1;
+    border-radius:14px;
+    padding:18px;
+    background:#f8fafc;
+}
+
+.acoes-form{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:24px;
+}
+
+@media(max-width:768px){
+    .acoes-form{
+        display:block;
+    }
+
+    .acoes-form .btn{
+        width:100%;
+        margin-bottom:10px;
+    }
+}
+</style>
+
+<div class="card-espaco">
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="bloco-form">
+            <div class="titulo-bloco">
+                <div class="icone-bloco azul">🏖️</div>
+                <div>
+                    <h4>Informações do espaço</h4>
+                    <small>Preencha os dados principais do salão ou espaço</small>
+                </div>
+            </div>
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label class="form-label">Nome do salão</label>
+                    {{ form.nome }}
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Capacidade</label>
+                    {{ form.capacidade }}
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Status</label>
+                    {{ form.status }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Descrição</label>
+                    {{ form.descricao }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Foto de capa</label>
+                    {{ form.foto_capa }}
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Valor da reserva</label>
+                    {{ form.valor_socio }}
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Caução</label>
+                    {{ form.caucao }}
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Horário início</label>
+                    {{ form.horario_inicio }}
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Horário fim</label>
+                    {{ form.horario_fim }}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="bloco-form">
+            <div class="titulo-bloco">
+                <div class="icone-bloco laranja">🖼️</div>
+                <div>
+                    <h4>Galeria de fotos</h4>
+                    <small>Cadastre até 5 fotos adicionais do espaço</small>
+                </div>
+            </div>
+
+            <div class="input-galeria">
+                <label class="form-label">Adicionar fotos</label>
+                <input type="file"
+                       name="fotos_galeria"
+                       multiple
+                       accept="image/*"
+                       class="form-control">
+                <small class="text-muted">
+                    Selecione uma ou mais imagens. O sistema aceitará no máximo 5 fotos na galeria.
+                </small>
+            </div>
+
+            {% if espaco and espaco.fotos.all %}
+                <div class="galeria-grid">
+                    {% for foto in espaco.fotos.all %}
+                        <div class="foto-card">
+                            <img src="{{ foto.imagem.url }}" alt="Foto do espaço">
+
+                            <a href="{% url 'espaco_foto_excluir' foto.id %}"
+                               class="btn btn-sm btn-outline-danger w-100 mt-2"
+                               onclick="return confirm('Deseja excluir esta foto?')">
+                                Excluir
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="bloco-form">
+            <div class="titulo-bloco">
+                <div class="icone-bloco verde">✅</div>
+                <div>
+                    <h4>Estrutura disponível</h4>
+                    <small>Selecione os itens disponíveis no espaço</small>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-3"><div class="check-card"><label>🔥 Churrasqueira</label>{{ form.churrasqueira }}</div></div>
+                <div class="col-md-3"><div class="check-card"><label>🍳 Cozinha</label>{{ form.cozinha }}</div></div>
+                <div class="col-md-3"><div class="check-card"><label>❄️ Freezer</label>{{ form.freezer }}</div></div>
+                <div class="col-md-3"><div class="check-card"><label>🧊 Geladeira</label>{{ form.geladeira }}</div></div>
+                <div class="col-md-3"><div class="check-card"><label>❄️ Ar-condicionado</label>{{ form.ar_condicionado }}</div></div>
+                <div class="col-md-3"><div class="check-card"><label>📶 Wi-Fi</label>{{ form.wifi }}</div></div>
+                <div class="col-md-3"><div class="check-card"><label>🚗 Estacionamento</label>{{ form.estacionamento }}</div></div>
+                <div class="col-md-3"><div class="check-card"><label>🚻 Banheiros</label>{{ form.banheiros }}</div></div>
+            </div>
+        </div>
+
+        <div class="bloco-form">
+            <div class="titulo-bloco">
+                <div class="icone-bloco roxo">📋</div>
+                <div>
+                    <h4>Regras de utilização</h4>
+                    <small>Informe as principais regras e orientações de uso</small>
+                </div>
+            </div>
+
+            {{ form.regras }}
+        </div>
+
+        <div class="acoes-form">
+            <button type="submit" class="btn btn-primary-custom">
+                <i class="bi bi-check-circle"></i>
+                Salvar espaço
+            </button>
+
+            <a href="{% url 'espacos_lista' %}" class="btn btn-outline-danger">
+                Cancelar
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

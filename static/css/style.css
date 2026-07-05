@@ -1,0 +1,303 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f4f7fb;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #0f172a;
+}
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 255px;
+    background: #07075f;
+    color: white;
+    padding: 24px 18px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.brand {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.brand img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.brand h1 {
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.05;
+    margin: 0;
+    color: white;
+}
+
+.brand span {
+    font-size: 14px;
+    color: #f8c400;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
+    color: #dbeafe;
+    text-decoration: none;
+    border-radius: 14px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.menu a i {
+    width: 22px;
+    min-width: 22px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.menu a span {
+    flex: 1;
+}
+
+.menu a:hover,
+.menu a.active {
+    background: #f8c400;
+    color: #07075f;
+}
+
+.sidebar-footer {
+    position: absolute;
+    bottom: 22px;
+    left: 18px;
+    right: 18px;
+    font-size: 12px;
+    color: #cbd5e1;
+    border-top: 1px solid rgba(255,255,255,.15);
+    padding-top: 14px;
+}
+
+.content {
+    margin-left: 255px;
+    padding: 28px;
+    width: calc(100% - 255px);
+}
+
+.topbar {
+    background: white;
+    border-radius: 24px;
+    padding: 24px 28px;
+    margin-bottom: 26px;
+    box-shadow: 0 12px 35px rgba(7, 7, 95, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.topbar h2 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 900;
+    color: #07075f;
+}
+
+.topbar p {
+    margin: 4px 0 0;
+    color: #64748b;
+}
+
+.top-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-primary-custom {
+    background: #1aa7ec;
+    color: white;
+    border: none;
+    font-weight: 700;
+}
+
+.btn-primary-custom:hover {
+    background: #07075f;
+    color: white;
+}
+
+.card-resumo {
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 12px 35px rgba(7, 7, 95, 0.08);
+}
+
+.card-resumo .card-body {
+    padding: 26px;
+}
+
+.card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+}
+
+.bg-azul {
+    background: #07075f;
+}
+
+.bg-onda {
+    background: #1aa7ec;
+}
+
+.bg-amarelo {
+    background: #f8c400;
+    color: #07075f;
+}
+
+.bg-vermelho {
+    background: #ef4444;
+}
+
+.numero {
+    font-size: 36px;
+    font-weight: 900;
+    margin-top: 12px;
+    color: #07075f;
+}
+
+.card-painel {
+    background: white;
+    border-radius: 24px;
+    padding: 26px;
+    box-shadow: 0 12px 35px rgba(7, 7, 95, 0.08);
+}
+
+.lista-reserva {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 14px 0;
+}
+
+.lista-reserva:last-child {
+    border-bottom: none;
+}
+
+.status {
+    padding: 7px 13px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.status-pendente {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+@media (max-width: 900px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .sidebar-footer {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        margin-top: 20px;
+    }
+
+    .app {
+        display: block;
+    }
+
+    .content {
+        margin-left: 0;
+        width: 100%;
+        padding: 18px;
+    }
+
+    .topbar {
+        display: block;
+    }
+
+    .top-actions {
+        margin-top: 15px;
+    }
+}
+
+.whatsapp-box {
+    max-width: 760px;
+    margin: 0 auto;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #efeae2;
+    border: 1px solid #ddd;
+}
+
+.whatsapp-header {
+    background: #07075f;
+    color: white;
+    padding: 18px 22px;
+}
+
+.whatsapp-chat {
+    height: 520px;
+    padding: 22px;
+    overflow-y: auto;
+    background: #efeae2;
+}
+
+.msg {
+    max-width: 75%;
+    padding: 12px 15px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    white-space: pre-line;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.msg.bot {
+    background: white;
+    color: #111827;
+    border-top-left-radius: 4px;
+}
+
+.msg.user {
+    background: #d9fdd3;
+    color: #111827;
+    margin-left: auto;
+    border-top-right-radius: 4px;
+}
+
+.whatsapp-form {
+    display: flex;
+    gap: 10px;
+    padding: 16px;
+    background: #f0f2f5;
+}

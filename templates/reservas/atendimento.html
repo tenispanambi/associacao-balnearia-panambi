@@ -1,0 +1,73 @@
+{% extends 'base/base.html' %}
+
+{% block titulo %}Atendimento{% endblock %}
+
+{% block content %}
+
+<div class="card-painel">
+    <div class="whatsapp-box">
+
+        <div class="whatsapp-header">
+            <div>
+                <strong>Associação Balneária Panambi</strong><br>
+                <small>Simulador de WhatsApp</small>
+            </div>
+        </div>
+
+        <div id="chat" class="whatsapp-chat">
+            <div class="msg bot">
+                Olá! Digite qualquer mensagem para iniciar o atendimento.
+            </div>
+        </div>
+
+        <form id="formChat" class="whatsapp-form">
+            {% csrf_token %}
+            <input type="text" id="mensagem" class="form-control" placeholder="Digite uma mensagem..." autocomplete="off">
+            <button class="btn btn-primary-custom" type="submit">
+                Enviar
+            </button>
+        </form>
+
+    </div>
+</div>
+
+<script>
+const form = document.getElementById('formChat');
+const input = document.getElementById('mensagem');
+const chat = document.getElementById('chat');
+
+function addMessage(texto, tipo) {
+    const div = document.createElement('div');
+    div.classList.add('msg', tipo);
+    div.innerText = texto;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const texto = input.value.trim();
+    if (!texto) return;
+
+    addMessage(texto, 'user');
+    input.value = '';
+
+    const formData = new FormData();
+    formData.append('mensagem', texto);
+    formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+
+    fetch("{% url 'atendimento_mensagem' %}", {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        setTimeout(() => {
+            addMessage(data.resposta, 'bot');
+        }, 400);
+    });
+});
+</script>
+
+{% endblock %}

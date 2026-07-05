@@ -1,0 +1,106 @@
+{% extends 'base/base.html' %}
+
+{% block titulo %}Central{% endblock %}
+
+{% block content %}
+
+<div class="row g-4">
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card card-resumo">
+            <div class="card-body">
+                <div class="card-icon bg-azul">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+                <div class="numero">0</div>
+                <div class="text-muted">Reservas hoje</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card card-resumo">
+            <div class="card-body">
+                <div class="card-icon bg-amarelo">
+                    <i class="bi bi-hourglass-split"></i>
+                </div>
+                <div class="numero">0</div>
+                <div class="text-muted">Reservas pendentes</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card card-resumo">
+            <div class="card-body">
+                <div class="card-icon bg-onda">
+                    <i class="bi bi-building"></i>
+                </div>
+                <div class="numero">{{ total_espacos }}</div>
+                <div class="text-muted">Espaços cadastrados</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card card-resumo">
+            <div class="card-body">
+                <div class="card-icon bg-vermelho">
+                    <i class="bi bi-cash-coin"></i>
+                </div>
+                <div class="numero">R$ 0</div>
+                <div class="text-muted">Receita do mês</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row g-4 mt-2">
+
+    <div class="col-lg-8">
+        <div class="card-painel">
+            <h4>Próximas reservas</h4>
+            <p class="text-muted">As próximas reservas dos espaços da Associação aparecerão aqui.</p>
+
+            <div class="lista-reserva">
+                <div>
+                    <strong>Nenhuma reserva cadastrada</strong><br>
+                    <small class="text-muted">Depois vamos conectar com o calendário e WhatsApp.</small>
+                </div>
+                <span class="status status-pendente">Aguardando</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card-painel">
+            <h4>Atalhos rápidos</h4>
+
+            <div class="d-grid gap-2 mt-3">
+                <a href="#" class="btn btn-primary-custom">
+                    <i class="bi bi-plus-circle"></i>
+                    Nova reserva
+                </a>
+
+                <a href="#" class="btn btn-outline-dark">
+                    <i class="bi bi-building-add"></i>
+                    Novo espaço
+                </a>
+
+                <a href="#" class="btn btn-outline-primary">
+                    <i class="bi bi-calendar3"></i>
+                    Abrir calendário
+                </a>
+
+                <a href="#" class="btn btn-outline-success">
+                    <i class="bi bi-whatsapp"></i>
+                    Abrir WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

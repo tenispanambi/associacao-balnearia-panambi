@@ -1,0 +1,147 @@
+{% extends 'base/base.html' %}
+
+{% block titulo %}Calendário{% endblock %}
+
+{% block content %}
+
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+
+<style>
+#calendar{
+    font-size:14px;
+}
+
+.fc-daygrid-day.fc-day-today{
+    background:#fff3bf !important;
+}
+
+.fc-daygrid-event{
+    padding:6px 8px !important;
+    border-radius:8px !important;
+    font-weight:700 !important;
+    font-size:13px !important;
+    cursor:pointer;
+}
+
+.fc-daygrid-day-frame{
+    min-height:115px;
+}
+
+.fc-daygrid-day-number{
+    font-weight:700;
+}
+
+.fc-day-com-reserva{
+    background:#e0f2fe !important;
+}
+</style>
+
+<div class="card-painel mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h4>Calendário de Reservas</h4>
+            <p class="text-muted mb-0">Clique em um dia para reservar ou em uma reserva para excluir.</p>
+        </div>
+
+        <a href="{% url 'nova_reserva' %}" class="btn btn-primary-custom">
+            <i class="bi bi-plus-circle"></i>
+            Nova reserva
+        </a>
+    </div>
+</div>
+
+<div class="card-painel mb-4">
+    <label class="form-label">
+        <strong>Filtrar por espaço</strong>
+    </label>
+
+    <select id="filtroEspaco" class="form-select" style="max-width: 350px;">
+        <option value="">Todos os espaços</option>
+        {% for espaco in espacos %}
+            <option value="{{ espaco.id }}">{{ espaco.nome }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="card-painel">
+    <div id="calendar"></div>
+</div>
+
+<form id="formExcluirReserva" method="post" style="display:none;">
+    {% csrf_token %}
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/locales-all.global.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const calendarEl = document.getElementById('calendar');
+    const filtroEspaco = document.getElementById('filtroEspaco');
+    const formExcluir = document.getElementById('formExcluirReserva');
+
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'pt-br',
+        initialView: 'dayGridMonth',
+        height: 720,
+
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,listWeek'
+        },
+
+        buttonText: {
+            today: 'Hoje',
+            month: 'Mês',
+            week: 'Semana',
+            list: 'Lista'
+        },
+
+        events: function(info, successCallback, failureCallback) {
+            let espaco = filtroEspaco.value;
+            let url = "{% url 'calendario_eventos' %}";
+
+            if (espaco) {
+                url += "?espaco=" + espaco;
+            }
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => successCallback(data))
+                .catch(error => failureCallback(error));
+        },
+
+        dateClick: function(info) {
+            window.location.href = "{% url 'nova_reserva' %}?data=" + info.dateStr;
+        },
+
+        eventClick: function(info) {
+            info.jsEvent.preventDefault();
+
+            let texto = "Reserva:\n\n" + info.event.title + "\n\nDeseja excluir esta reserva?";
+
+            if (confirm(texto)) {
+                formExcluir.action = "/reservas/" + info.event.id + "/excluir/";
+                formExcluir.submit();
+            }
+        },
+
+        eventDidMount: function(info) {
+            const dia = info.el.closest('.fc-daygrid-day');
+
+            if (dia) {
+                dia.classList.add('fc-day-com-reserva');
+            }
+        }
+    });
+
+    calendar.render();
+
+    filtroEspaco.addEventListener('change', function () {
+        calendar.refetchEvents();
+    });
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base/base.html' %}
+
+{% block titulo %}Espaços{% endblock %}
+
+{% block content %}
+
+<div class="card-painel mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h4>Espaços da Associação</h4>
+            <p class="text-muted mb-0">Cadastre e acompanhe os salões de festa.</p>
+        </div>
+
+        <a href="{% url 'espaco_criar' %}" class="btn btn-primary-custom">
+            <i class="bi bi-plus-circle"></i>
+            Novo espaço
+        </a>
+    </div>
+</div>
+
+{% for message in messages %}
+    <div class="alert alert-info">{{ message }}</div>
+{% endfor %}
+
+<div class="row g-4">
+
+    {% for espaco in espacos %}
+    <div class="col-lg-4 col-md-6">
+        <div class="card card-resumo h-100 overflow-hidden">
+
+            {% if espaco.foto_capa %}
+                <img src="{{ espaco.foto_capa.url }}" class="card-img-top" style="height:230px; object-fit:cover;">
+            {% endif %}
+
+            <div class="card-body">
+                <h4>{{ espaco.nome }}</h4>
+
+                <p class="text-muted">
+                    {{ espaco.descricao|truncatewords:18 }}
+                </p>
+
+                <p>
+                    <i class="bi bi-people"></i>
+                    {{ espaco.capacidade }} pessoas
+                </p>
+
+                <p>
+                    <strong>Valor:</strong> R$ {{ espaco.valor_socio }}<br>
+                    <strong>Caução:</strong> R$ {{ espaco.caucao }}
+                </p>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{% url 'calendario' %}?espaco={{ espaco.id }}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-calendar3"></i>
+                        Agenda
+                    </a>
+
+                    <a href="{% url 'espaco_editar' espaco.id %}" class="btn btn-outline-dark btn-sm">
+                        <i class="bi bi-pencil"></i>
+                        Editar
+                    </a>
+
+                    <a href="{% url 'espaco_deletar' espaco.id %}" class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-trash"></i>
+                        Excluir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% empty %}
+    <div class="col-12">
+        <div class="card-painel text-center">
+            <h4>Nenhum espaço cadastrado</h4>
+            <p class="text-muted">Clique em Novo espaço para cadastrar o primeiro salão.</p>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
