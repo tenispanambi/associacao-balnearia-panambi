@@ -1,0 +1,147 @@
+[
+{
+  "model": "reservas.espaco",
+  "pk": 2,
+  "fields": {
+    "nome": "Salão de Vidro",
+    "descricao": "",
+    "capacidade": 30,
+    "valor_socio": "300.00",
+    "caucao": "0.00",
+    "horario_inicio": "09:00:00",
+    "horario_fim": null,
+    "foto_capa": "espacos/capas/SALÃO_DE_VIDRO_4.jpg.jpeg",
+    "churrasqueira": true,
+    "cozinha": true,
+    "freezer": true,
+    "geladeira": true,
+    "ar_condicionado": true,
+    "wifi": true,
+    "estacionamento": false,
+    "banheiros": true,
+    "regras": "",
+    "status": "ativo",
+    "criado_em": "2026-07-02T02:15:14.650Z"
+  }
+},
+{
+  "model": "reservas.espaco",
+  "pk": 3,
+  "fields": {
+    "nome": "Salão do Beach",
+    "descricao": "",
+    "capacidade": 30,
+    "valor_socio": "200.00",
+    "caucao": "0.00",
+    "horario_inicio": "09:00:00",
+    "horario_fim": null,
+    "foto_capa": "espacos/capas/SALÃO_DO_BEACH_2_SzkKmdD.jpeg",
+    "churrasqueira": true,
+    "cozinha": false,
+    "freezer": false,
+    "geladeira": true,
+    "ar_condicionado": false,
+    "wifi": true,
+    "estacionamento": false,
+    "banheiros": true,
+    "regras": "",
+    "status": "ativo",
+    "criado_em": "2026-07-02T03:04:31.473Z"
+  }
+},
+{
+  "model": "reservas.fotoespaco",
+  "pk": 1,
+  "fields": {
+    "espaco": 3,
+    "imagem": "espacos/galeria/SALÃO_DO_BEACH_1.jpg.jpeg",
+    "legenda": "",
+    "ordem": 1,
+    "criado_em": "2026-07-02T03:04:31.488Z"
+  }
+},
+{
+  "model": "reservas.fotoespaco",
+  "pk": 2,
+  "fields": {
+    "espaco": 2,
+    "imagem": "espacos/galeria/SALÃO_DE_VIDRO_1.jpg.jpeg",
+    "legenda": "",
+    "ordem": 1,
+    "criado_em": "2026-07-03T01:28:50.630Z"
+  }
+},
+{
+  "model": "reservas.fotoespaco",
+  "pk": 3,
+  "fields": {
+    "espaco": 2,
+    "imagem": "espacos/galeria/SALÃO_DE_VIDRO_2.jpg.jpeg",
+    "legenda": "",
+    "ordem": 1,
+    "criado_em": "2026-07-03T01:28:50.650Z"
+  }
+},
+{
+  "model": "reservas.fotoespaco",
+  "pk": 4,
+  "fields": {
+    "espaco": 2,
+    "imagem": "espacos/galeria/SALÃO_DE_VIDRO_3.jpg.jpeg",
+    "legenda": "",
+    "ordem": 1,
+    "criado_em": "2026-07-03T01:28:50.675Z"
+  }
+},
+{
+  "model": "reservas.fotoespaco",
+  "pk": 5,
+  "fields": {
+    "espaco": 2,
+    "imagem": "espacos/galeria/SALÃO_DE_VIDRO_4.jpg.jpeg",
+    "legenda": "",
+    "ordem": 1,
+    "criado_em": "2026-07-03T01:28:50.714Z"
+  }
+},
+{
+  "model": "reservas.cliente",
+  "pk": 4,
+  "fields": {
+    "nome": "Marcio Estula",
+    "telefone": "55991744354",
+    "cpf": "",
+    "socio": true,
+    "criado_em": "2026-07-05T01:33:18.766Z"
+  }
+},
+{
+  "model": "reservas.reserva",
+  "pk": 1,
+  "fields": {
+    "espaco": 2,
+    "cliente": 4,
+    "data": "2026-07-15",
+    "hora_inicio": "19:00:00",
+    "hora_fim": "23:59:00",
+    "quantidade_pessoas": 20,
+    "observacoes": "não",
+    "decoracao": false,
+    "brinquedos_inflaveis": false,
+    "musica_ao_vivo": false,
+    "churrasqueira_rotativa": false,
+    "utensilios_vidro": false,
+    "tipo_utensilios": "",
+    "toalhas": "",
+    "periodo": "noite",
+    "aceitou_regras": true,
+    "origem": "whatsapp",
+    "status": "confirmada",
+    "criado_em": "2026-07-05T01:33:18.772Z"
+  }
+},
+{
+  "model": "reservas.configuracaowhatsapp",
+  "pk": 1,
+  "fields": {
+    "mensagem_boas_vindas": 
