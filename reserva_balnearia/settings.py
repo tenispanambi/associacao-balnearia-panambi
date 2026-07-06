@@ -1,6 +1,7 @@
 from pathlib import Path
 from decouple import config
-import os
+import dj_database_url
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -14,9 +15,13 @@ SECRET_KEY = config(
     default='django-insecure-troque-esta-chave'
 )
 
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://associacao-balnearia-panambi-production.up.railway.app',
+]
 
 
 # ===========================
@@ -42,8 +47,8 @@ INSTALLED_APPS = [
 # Crispy
 # ===========================
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
 # ===========================
@@ -98,8 +103,6 @@ WSGI_APPLICATION = 'reserva_balnearia.wsgi.application'
 # Banco
 # ===========================
 
-import dj_database_url
-
 DATABASE_URL = config('DATABASE_URL', default='')
 
 if DATABASE_URL:
@@ -140,7 +143,7 @@ USE_TZ = True
 
 
 # ===========================
-# Arquivos
+# Arquivos estáticos e mídia
 # ===========================
 
 STATIC_URL = '/static/'
@@ -152,14 +155,12 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
     },
 }
 
-
 MEDIA_URL = '/media/'
-
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
